@@ -14,6 +14,10 @@ import java.lang.reflect.Field;
 
 public class SettingsActivity extends Activity {
 
+    private static final String NAME_PREFIX = "ACTION_";
+    private static final String NAME_SUFFIX = "_SETTINGS";
+    private static final String NAME_MAIN = "ACTION_SETTINGS";
+
     private View settingMenuButton(final String action, final String title) {
         final LinearLayout row = new LinearLayout(this);
         row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -21,14 +25,12 @@ public class SettingsActivity extends Activity {
         button.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         button.setText(title);
         row.addView(button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(action);
-                // NOT USABLE FOR SETTINGS INTENTS
-                // it will be considered the HOME activity and will be on top of the stack as needed for the system to broadcast BOOT_COMPLETED
-                //settingsIntent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(settingsIntent);
-            }
+        button.setOnClickListener(v -> {
+            Intent settingsIntent = new Intent(action);
+            // NOT USABLE FOR SETTINGS INTENTS
+            // it will be considered the HOME activity and will be on top of the stack as needed for the system to broadcast BOOT_COMPLETED
+            //settingsIntent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(settingsIntent);
         });
         return row;
     }
@@ -45,14 +47,13 @@ public class SettingsActivity extends Activity {
         for (Field field : fields) {
             field.setAccessible(true);
             final String name = field.getName();
-            if (name.startsWith("ACTION_") && name.endsWith("_SETTINGS")) {
+            if (name.startsWith(NAME_PREFIX) && name.endsWith(NAME_SUFFIX)) {
                 try {
-                    final String title = "ACTION_SETTINGS".equals(name) ? name : name.substring(7, name.length() - 9);
+                    final String title = NAME_MAIN.equals(name) ? name
+                            : name.substring(NAME_PREFIX.length(), name.length() - NAME_SUFFIX.length());
                     final String value = (String) field.get(null);
                     layout.addView(settingMenuButton(value, title));
-                } catch (IllegalArgumentException ex) {
-                    // nop
-                } catch (IllegalAccessException ex) {
+                } catch (IllegalArgumentException | IllegalAccessException ex) {
                     // nop
                 }
             }
