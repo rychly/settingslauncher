@@ -1,4 +1,4 @@
-package io.github.rychly.settingslauncher;
+package io.github.rychly.simplelauncher;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,9 +9,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
 import java.lang.reflect.Field;
 
-public class MainActivity extends Activity {
+public class SettingsActivity extends Activity {
 
     private View settingMenuButton(final String action, final String title) {
         final LinearLayout row = new LinearLayout(this);
