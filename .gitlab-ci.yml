@@ -30,7 +30,7 @@ pages:
     - which convert 2>/dev/null && ./drawables_dpis_creation.sh
     - ./gradlew -PANDROID_BUILD_TARGET_SDK_VERSION=${ANDROID_API} -PANDROID_BUILD_TOOLS_VERSION=${ANDROID_BUILD_TOOLS} -PANDROID_BUILD_SDK_VERSION=${ANDROID_API} packageDebug
     - mkdir -p "${PUBLIC}"
-    - mv -v */build/outputs/apk/*-debug.apk "${PUBLIC}/"
+    - mv -v ./build/outputs/apk/*-debug.apk "${PUBLIC}/"
   artifacts:
     paths:
       - ${PUBLIC}
