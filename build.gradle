@@ -1,25 +1,44 @@
 buildscript {
     repositories {
+        google()
         jcenter()
+        mavenCentral()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    // /opt/android-sdk-update-manager/tools/bin/sdkmanager 'platform-tools' 'build-tools;27.0.3' 'platforms;android-8'
+    // /opt/android-sdk-update-manager/tools/bin/sdkmanager 'platform-tools' 'build-tools;27.0.3' 'platforms;android-8' #'extras;android;m2repository'
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    defaultConfig {
-        jackOptions {
-            enabled true
-        }
-    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    defaultConfig {
+        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+        //vectorDrawables.useSupportLibrary = true
+        // stop automatic rasterization of vectors
+        //vectorDrawables.generatedDensities = []
+    }
+
+    aaptOptions {
+        // tell aapt to keep the attribute ids around
+        //additionalParameters "--no-version-vectors"
+    }
+}
+
+dependencies {
+    // DO NOT USE AppCompat LIBRARY (*.apk +500kB), no vectorDrawables, will use *.png files
+    // versions 26.* have minimum SDK version 14
+    // versions 24.* and 25.* have minimum SDK version 9
+    //compile 'com.android.support:support-vector-drawable:23.4.0'
 }

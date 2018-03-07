@@ -13,11 +13,12 @@ done
 # 0.75 | 1    | 1.5  | 2     | 3      | 4
 # convert $1 -resize 75% drawable-ldpi/$1
 
-for I in "${DIR_INPUT}"/*.png; do
-	convert -verbose "${I}" -resize 36x36 "${DIR_OUTPUT}/drawable-ldpi/$(basename ${I})"
-	convert -verbose "${I}" -resize 48x48 "${DIR_OUTPUT}/drawable-mdpi/$(basename ${I})"
-	convert -verbose "${I}" -resize 72x72 "${DIR_OUTPUT}/drawable-hdpi/$(basename ${I})"
-	convert -verbose "${I}" -resize 96x96 "${DIR_OUTPUT}/drawable-xhdpi/$(basename ${I})"
-	convert -verbose "${I}" -resize 144x144 "${DIR_OUTPUT}/drawable-xxhdpi/$(basename ${I})"
-	convert -verbose "${I}" -resize 192x192 "${DIR_OUTPUT}/drawable-xxxhdpi/$(basename ${I})"
+for I in "${DIR_INPUT}"/*.svg; do
+	FILENAME="$(basename ${I} .svg).png"
+	convert -verbose -background none "${I}" -resize 36x36 "${DIR_OUTPUT}/drawable-ldpi/${FILENAME}"
+	convert -verbose -background none "${I}" -resize 48x48 "${DIR_OUTPUT}/drawable-mdpi/${FILENAME}"
+	convert -verbose -background none "${I}" -resize 72x72 "${DIR_OUTPUT}/drawable-hdpi/${FILENAME}"
+	convert -verbose -background none "${I}" -resize 96x96 "${DIR_OUTPUT}/drawable-xhdpi/${FILENAME}"
+	convert -verbose -background none "${I}" -resize 144x144 "${DIR_OUTPUT}/drawable-xxhdpi/${FILENAME}"
+	convert -verbose -background none "${I}" -resize 192x192 "${DIR_OUTPUT}/drawable-xxxhdpi/${FILENAME}"
 done
