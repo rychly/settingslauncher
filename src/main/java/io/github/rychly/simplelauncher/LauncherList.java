@@ -13,7 +13,7 @@ import java.util.List;
 public class LauncherList {
     private List<ListItem> rowItems;
 
-    LauncherList() {
+    public LauncherList() {
         this.rowItems = new LinkedList<>();
     }
 
@@ -25,21 +25,10 @@ public class LauncherList {
         return button;
     }
 
-    ListItem addItem(String label, View.OnClickListener action) {
+    public ListItem addItem(String label, View.OnClickListener action) {
         final ListItem button = new ListItem(label, action);
         this.rowItems.add(button);
         return button;
-    }
-
-    public View getActivitiesSwitch(Context context) {
-        // layout
-        final LinearLayout layout = new LinearLayout(context);
-        layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        // buttons
-        layout.addView(ApplicationsActivity.getButton(context));
-        layout.addView(SettingsActivity.getButton(context));
-        return layout;
     }
 
     public View getView(Context context) {
@@ -47,8 +36,6 @@ public class LauncherList {
         final LinearLayout layout = new LinearLayout(context);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         layout.setOrientation(LinearLayout.VERTICAL);
-        // build header content to switch local activities
-        layout.addView(this.getActivitiesSwitch(context));
         // build main content
         for (ListItem item : this.rowItems) {
             layout.addView(item.getHorizontalView(context));
@@ -78,7 +65,7 @@ public class LauncherList {
             return button;
         }
 
-        public View getHorizontalView(Context context) {
+        View getHorizontalView(Context context) {
             // layout
             final LinearLayout layout = new LinearLayout(context);
             layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -92,7 +79,7 @@ public class LauncherList {
             return layout;
         }
 
-        public View getButton(Context context) {
+        View getButton(Context context) {
             return LauncherList.makeButton(context, this.label, this.action);
         }
 

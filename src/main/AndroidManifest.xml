@@ -2,12 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.github.rychly.simplelauncher"
     android:versionCode="1" android:versionName="1.0.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:allowBackup="true">
-        <activity android:name=".FavouritesActivity" android:label="@string/app_name_favourites"
-            android:clearTaskOnLaunch="true" android:stateNotNeeded="true" android:excludeFromRecents="true"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".ApplicationsActivity" android:label="@string/app_name_applications"
-            android:clearTaskOnLaunch="true" android:stateNotNeeded="true" android:excludeFromRecents="true"
-            android:launchMode="singleTask">
+        <activity android:name=".MainActivity" android:label="@string/app_name" android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true" android:excludeFromRecents="true" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
@@ -15,11 +11,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".FileManagerActivity" android:label="@string/app_name_filemanager"
-            android:clearTaskOnLaunch="true" android:stateNotNeeded="true" android:excludeFromRecents="true"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".SettingsActivity" android:label="@string/app_name_settings"
-            android:clearTaskOnLaunch="true" android:stateNotNeeded="true" android:excludeFromRecents="true"
-            android:launchMode="singleTask"></activity>
+        <activity android:name=".ApplicationsActivity" android:label="@string/app_name_applications">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".SettingsActivity" android:label="@string/app_name_settings">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".FileManagerActivity" android:label="@string/app_name_filemanager">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".FavouritesActivity" android:label="@string/app_name_favourites">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+        </activity>
     </application>
 </manifest>

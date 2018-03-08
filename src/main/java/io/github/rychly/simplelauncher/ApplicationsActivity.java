@@ -2,12 +2,11 @@ package io.github.rychly.simplelauncher;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.view.View;
+import io.github.rychly.simplelauncher.items.PackageActivityItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,22 +14,15 @@ import java.util.List;
 
 public class ApplicationsActivity extends Activity {
 
-    public static View getButton(Context context) {
-        return LauncherList.makeButton(context, ApplicationsActivity.class.getCanonicalName(), v -> {
-            final Intent activityIntent = new Intent(context, ApplicationsActivity.class);
-            context.startActivity(activityIntent);
-        });
-    }
-
-    private List<ApplicationItem> createApplicationsList(PackageManager pm) {
-        final List<ApplicationItem> applicationItems = new ArrayList<>();
+    private List<PackageActivityItem> createApplicationsList(PackageManager pm) {
+        final List<PackageActivityItem> applicationItems = new ArrayList<>();
         final Intent componentSearchIntent = new Intent();
         componentSearchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         componentSearchIntent.setAction(Intent.ACTION_MAIN);
         final List<ResolveInfo> resolveInfos = pm.queryIntentActivities(componentSearchIntent, 0);
         for (ResolveInfo resolveInfo : resolveInfos) {
             if (resolveInfo.activityInfo != null) {
-                final ApplicationItem applicationItem = new ApplicationItem(
+                final PackageActivityItem applicationItem = new PackageActivityItem(
                         resolveInfo.activityInfo.packageName,
                         resolveInfo.activityInfo.name,
                         (String) (resolveInfo.activityInfo.labelRes == 0
@@ -48,8 +40,8 @@ public class ApplicationsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final LauncherList launcherList = new LauncherList();
-        final List<ApplicationItem> applicationItems = this.createApplicationsList(getPackageManager());
-        for (ApplicationItem applicationItem : applicationItems) {
+        final List<PackageActivityItem> applicationItems = this.createApplicationsList(getPackageManager());
+        for (PackageActivityItem applicationItem : applicationItems) {
             launcherList.addItem(applicationItem.getLabel(), v -> {
                 final Intent applicationIntent = new Intent();
                 applicationIntent.setComponent(new ComponentName(applicationItem.getPackageName(), applicationItem.getActivityName()));
@@ -60,38 +52,6 @@ public class ApplicationsActivity extends Activity {
             });
         }
         setContentView(launcherList.getView(this));
-    }
-
-    class ApplicationItem implements Comparable<ApplicationItem> {
-        private String packageName;
-        private String activityName;
-        private String label;
-
-        ApplicationItem(String packageName, String activityName, String label) {
-            this.packageName = packageName;
-            this.activityName = activityName;
-            this.label = label;
-        }
-
-        String getPackageName() {
-            return packageName;
-        }
-
-        String getActivityName() {
-            return activityName;
-        }
-
-        String getLabel() {
-            return label;
-        }
-
-        @Override
-        public int compareTo(ApplicationItem applicationItem) {
-            if (applicationItem == null) {
-                return -1;
-            }
-            return label.compareToIgnoreCase(applicationItem.label);
-        }
     }
 
 }
