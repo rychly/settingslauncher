@@ -15,6 +15,9 @@
         <activity android:name=".ApplicationsActivity" android:label="@string/app_name_applications">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
         </activity>
+        <activity android:name=".ActivitiesActivity" android:label="@string/app_name_activities">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+        </activity>
         <activity android:name=".SettingsActivity" android:label="@string/app_name_settings">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
         </activity>

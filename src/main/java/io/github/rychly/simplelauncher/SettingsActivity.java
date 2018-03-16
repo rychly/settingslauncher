@@ -15,8 +15,9 @@ public class SettingsActivity extends Activity {
     private static final String NAME_PREFIX = "ACTION_";
     private static final String NAME_SUFFIX = "_SETTINGS";
     private static final String NAME_MAIN = "ACTION_SETTINGS";
+    private static final String LABEL_PREFIX_MAIN = "*";
 
-    private List<ActivityItem> createSettingsList() {
+    public static List<ActivityItem> createSettingsList() {
         final List<ActivityItem> settingsItems = new ArrayList<>();
         // https://developer.android.com/reference/android/provider/Settings.html
         final Field[] fields = Settings.class.getDeclaredFields();
@@ -25,7 +26,8 @@ public class SettingsActivity extends Activity {
             final String name = field.getName();
             if (name.startsWith(NAME_PREFIX) && name.endsWith(NAME_SUFFIX)) {
                 try {
-                    final String label = NAME_MAIN.equals(name) ? name
+                    final String label = NAME_MAIN.equals(name)
+                            ? LABEL_PREFIX_MAIN + name
                             : name.substring(NAME_PREFIX.length(), name.length() - NAME_SUFFIX.length());
                     final String activityName = (String) field.get(null);
                     final ActivityItem settingItem = new ActivityItem(activityName, label);
@@ -43,7 +45,7 @@ public class SettingsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final LauncherList launcherList = new LauncherList();
-        final List<ActivityItem> settingItems = this.createSettingsList();
+        final List<ActivityItem> settingItems = createSettingsList();
         for (ActivityItem settingItem : settingItems) {
             launcherList.addItem(settingItem.getLabel(), v -> {
                 final Intent settingsIntent = new Intent(settingItem.getActivityName());
@@ -51,7 +53,7 @@ public class SettingsActivity extends Activity {
                 // it will be considered the HOME activity and will be on top of the stack as needed for the system to broadcast BOOT_COMPLETED
                 //settingsIntent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(settingsIntent);
-            });
+            }, null);
         }
         setContentView(launcherList.getView(this));
     }

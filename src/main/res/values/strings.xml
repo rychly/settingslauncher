@@ -3,6 +3,7 @@
     <string name="app_name">Simple Launcher</string>
     <string name="app_name_favourites">Favourites</string>
     <string name="app_name_applications">Applications</string>
+    <string name="app_name_activities">X: Package Activities</string>
     <string name="app_name_filemanager">File Manager</string>
     <string name="app_name_settings">Settings</string>
 </resources>
