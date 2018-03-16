@@ -18,10 +18,10 @@ public class ActivityItem implements Comparable<ActivityItem> {
     }
 
     @Override
-    public int compareTo(ActivityItem settingItem) {
-        if (settingItem == null) {
+    public int compareTo(ActivityItem activityItem) {
+        if (activityItem == null) {
             return -1;
         }
-        return label.compareToIgnoreCase(settingItem.label);
+        return label.compareToIgnoreCase(activityItem.label);
     }
 }

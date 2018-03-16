@@ -1,33 +1,26 @@
 package io.github.rychly.simplelauncher.items;
 
-public class PackageActivityItem implements Comparable<PackageActivityItem> {
+import android.graphics.drawable.Drawable;
+
+public class PackageActivityItem extends ActivityItem {
     private String packageName;
-    private String activityName;
-    private String label;
+    private Drawable icon;
 
     public PackageActivityItem(String packageName, String activityName, String label) {
+        super(activityName, label);
         this.packageName = packageName;
-        this.activityName = activityName;
-        this.label = label;
+    }
+
+    public PackageActivityItem(String packageName, String activityName, String label, Drawable icon) {
+        this(packageName, activityName, label);
+        this.icon = icon;
     }
 
     public String getPackageName() {
         return packageName;
     }
 
-    public String getActivityName() {
-        return activityName;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public int compareTo(PackageActivityItem applicationItem) {
-        if (applicationItem == null) {
-            return -1;
-        }
-        return label.compareToIgnoreCase(applicationItem.label);
+    public Drawable getIcon() {
+        return icon;
     }
 }
