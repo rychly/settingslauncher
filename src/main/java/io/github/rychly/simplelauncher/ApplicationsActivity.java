@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import io.github.rychly.simplelauncher.items.PackageActivityItem;
+import io.github.rychly.simplelauncher.utils.LauncherList;
 
 import java.util.ArrayList;
 import java.util.Collections;

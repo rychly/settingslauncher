@@ -1,4 +1,4 @@
-package io.github.rychly.simplelauncher;
+package io.github.rychly.simplelauncher.utils;
 
 import android.content.Context;
 import android.graphics.Color;

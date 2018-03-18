@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import io.github.rychly.simplelauncher.items.ActivityItem;
+import io.github.rychly.simplelauncher.utils.LauncherList;
 
 import java.util.ArrayList;
 import java.util.Collections;

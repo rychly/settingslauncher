@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import io.github.rychly.simplelauncher.items.ActivityItem;
+import io.github.rychly.simplelauncher.utils.LauncherList;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
